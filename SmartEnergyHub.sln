@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnergyHub.API", "SmartEnergyHub.API\SmartEnergyHub.API.csproj", "{C0AC65C9-1585-4C1A-B725-59CE2EB6D928}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnergyHub.DAL", "SmartEnergyHub.DAL\SmartEnergyHub.DAL.csproj", "{720F3D06-E5D4-4A97-A72B-B6691A2EAE07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnergyHub.BLL", "SmartEnergyHub.BLL\SmartEnergyHub.BLL.csproj", "{2F00DAD9-B54F-4250-80DD-9FAC5ED785C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C0AC65C9-1585-4C1A-B725-59CE2EB6D928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0AC65C9-1585-4C1A-B725-59CE2EB6D928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0AC65C9-1585-4C1A-B725-59CE2EB6D928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720F3D06-E5D4-4A97-A72B-B6691A2EAE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720F3D06-E5D4-4A97-A72B-B6691A2EAE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720F3D06-E5D4-4A97-A72B-B6691A2EAE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720F3D06-E5D4-4A97-A72B-B6691A2EAE07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F00DAD9-B54F-4250-80DD-9FAC5ED785C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F00DAD9-B54F-4250-80DD-9FAC5ED785C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F00DAD9-B54F-4250-80DD-9FAC5ED785C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F00DAD9-B54F-4250-80DD-9FAC5ED785C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
