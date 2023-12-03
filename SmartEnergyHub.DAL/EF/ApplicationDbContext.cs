@@ -3,7 +3,7 @@ using SmartEnergyHub.DAL.Entities.APIUser;
 
 namespace SmartEnergyHub.DAL.EF
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
@@ -18,7 +18,9 @@ namespace SmartEnergyHub.DAL.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>();
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
         }
     }
 }
