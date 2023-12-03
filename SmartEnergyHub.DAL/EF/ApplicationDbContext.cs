@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SmartEnergyHub.DAL.Entities;
 using SmartEnergyHub.DAL.Entities.APIUser;
 
 namespace SmartEnergyHub.DAL.EF
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<Customer>
     {
         public DbSet<User> Users { get; set; }
 
