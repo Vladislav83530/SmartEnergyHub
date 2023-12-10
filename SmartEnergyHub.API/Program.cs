@@ -7,6 +7,8 @@ using Serilog;
 using SmartEnergyHub.API.Filters;
 using SmartEnergyHub.BLL.Auth;
 using SmartEnergyHub.BLL.Auth.Interfaces;
+using SmartEnergyHub.BLL.Customer;
+using SmartEnergyHub.BLL.Customer.Abstract;
 using SmartEnergyHub.DAL.EF;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
@@ -52,6 +54,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddScoped<ICustomerInfoProvider, CustomerInfoProvider>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()

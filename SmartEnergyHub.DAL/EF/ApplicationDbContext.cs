@@ -8,6 +8,7 @@ namespace SmartEnergyHub.DAL.EF
     public class ApplicationDbContext : IdentityDbContext<Customer>
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         { 

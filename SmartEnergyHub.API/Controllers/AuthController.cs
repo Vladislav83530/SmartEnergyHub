@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SmartEnergyHub.API.Filters;
 using SmartEnergyHub.API.Models;
 using SmartEnergyHub.BLL.Auth.Interfaces;
@@ -27,7 +26,7 @@ namespace SmartEnergyHub.API.Controllers
             _tokenProvider = tokenProvider ?? throw new ArgumentNullException( nameof(tokenProvider));
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRequestModel request)
         {
