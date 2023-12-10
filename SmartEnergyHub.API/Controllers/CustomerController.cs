@@ -54,5 +54,26 @@ namespace SmartEnergyHub.API.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpDelete, Route("delete/{id}")]
+        public async Task<IActionResult> DeleteCustomer(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            try
+            {
+                await this._customerInfoProvider.DeleteCustomerAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+            return Ok();
+        }
     }
 }

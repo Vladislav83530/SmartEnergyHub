@@ -80,5 +80,18 @@ namespace SmartEnergyHub.BLL.Customer
 
             return null;
         }
+
+        public async Task DeleteCustomerAsync(string customerId)
+        {
+            if (string.IsNullOrEmpty(customerId))
+            {
+                throw new ArgumentNullException(nameof(customerId));
+            }
+
+            var customer = await this._context.Customers.FirstOrDefaultAsync(customer => customer.Id == customerId);
+
+            this._context.Customers.Remove(customer);
+            await this._context.SaveChangesAsync();
+        }
     }
 }

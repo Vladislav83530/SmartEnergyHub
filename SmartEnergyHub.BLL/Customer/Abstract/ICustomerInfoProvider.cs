@@ -7,5 +7,6 @@ namespace SmartEnergyHub.BLL.Customer.Abstract
     {
         Task<CustomerResponseModel> GetCustomerAsync(string customerId);
         Task<string> UpdateCustomerAsync(UpdateCustomerRequestModel model);
+        Task DeleteCustomerAsync(string customerId);
     }
 }
