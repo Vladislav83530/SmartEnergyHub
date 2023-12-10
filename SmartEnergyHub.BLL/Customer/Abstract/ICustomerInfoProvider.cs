@@ -1,9 +1,11 @@
-﻿using SmartEnergyHub.BLL.Models;
+﻿using SmartEnergyHub.BLL.Customer.Models;
+using SmartEnergyHub.BLL.Models;
 
 namespace SmartEnergyHub.BLL.Customer.Abstract
 {
     public interface ICustomerInfoProvider
     {
-        Task<CustomerResponseModel> GetCustomer(string customerId);
+        Task<CustomerResponseModel> GetCustomerAsync(string customerId);
+        Task<string> UpdateCustomerAsync(UpdateCustomerRequestModel model);
     }
 }

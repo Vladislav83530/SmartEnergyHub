@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartEnergyHub.BLL.Customer.Abstract;
+using SmartEnergyHub.BLL.Customer.Models;
 using SmartEnergyHub.BLL.Models;
 using SmartEnergyHub.DAL.EF;
 
@@ -14,7 +15,7 @@ namespace SmartEnergyHub.BLL.Customer
             this._context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<CustomerResponseModel> GetCustomer(string customerId)
+        public async Task<CustomerResponseModel> GetCustomerAsync(string customerId)
         {
             if (string.IsNullOrEmpty(customerId))
             {
@@ -43,6 +44,41 @@ namespace SmartEnergyHub.BLL.Customer
             }
 
             return customerResponseModel;
+        }
+
+        public async Task<string> UpdateCustomerAsync(UpdateCustomerRequestModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (string.IsNullOrEmpty(model.CustomerId))
+            {
+                throw new ArgumentNullException(nameof(model.CustomerId));
+            }
+
+            var customer = await this._context.Customers.FirstOrDefaultAsync(customer => customer.Id == model.CustomerId);
+
+            if (customer != null)
+            {
+                customer.Id = model.CustomerId;
+                customer.FistName = model.FirstName;
+                customer.LastName = model.LastName;
+                customer.PhoneNumber = model.PhoneNumber;
+                customer.Region = model.Region;
+                customer.City = model.City;
+                customer.Street = model.Street;
+                customer.HouseNumber = model.HouseNumber;
+                customer.FlatNumber = model.FlatNumber;
+
+                _context.Customers.Update(customer);
+                await _context.SaveChangesAsync();
+
+                return customer.Id;
+            }
+
+            return null;
         }
     }
 }

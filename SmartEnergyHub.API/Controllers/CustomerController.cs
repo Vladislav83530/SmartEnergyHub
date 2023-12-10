@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartEnergyHub.BLL.Customer.Abstract;
+using SmartEnergyHub.BLL.Customer.Models;
 using SmartEnergyHub.BLL.Models;
 
 namespace SmartEnergyHub.API.Controllers
@@ -25,7 +26,7 @@ namespace SmartEnergyHub.API.Controllers
                 throw new ArgumentNullException(nameof(id));
             }
 
-            CustomerResponseModel model = await this._customerInfoProvider.GetCustomer(id);
+            CustomerResponseModel model = await this._customerInfoProvider.GetCustomerAsync(id);
 
             if (model == null)
             {
@@ -33,6 +34,25 @@ namespace SmartEnergyHub.API.Controllers
             }
 
             return Ok(model);
+        }
+
+        [Authorize]
+        [HttpPost, Route("update")]
+        public async Task<IActionResult> UpdateCustomerInfo(UpdateCustomerRequestModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            string customerId = await this._customerInfoProvider.UpdateCustomerAsync(model);
+
+            if (string.IsNullOrEmpty(customerId))
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }
