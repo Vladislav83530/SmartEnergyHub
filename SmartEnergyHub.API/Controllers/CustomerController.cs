@@ -75,5 +75,24 @@ namespace SmartEnergyHub.API.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpPost, Route("add-residence/{id}")]
+        public async Task<IActionResult> AddCustomerResidence(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            int result = await this._customerInfoProvider.CreateDefaultResidenceAsync(id);
+
+            if (result <= 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
     }
 }
