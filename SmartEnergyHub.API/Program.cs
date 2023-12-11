@@ -9,6 +9,8 @@ using SmartEnergyHub.BLL.Auth;
 using SmartEnergyHub.BLL.Auth.Interfaces;
 using SmartEnergyHub.BLL.Customer;
 using SmartEnergyHub.BLL.Customer.Abstract;
+using SmartEnergyHub.BLL.Residence_;
+using SmartEnergyHub.BLL.Residence_.Abstract;
 using SmartEnergyHub.DAL.EF;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
@@ -55,6 +57,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICustomerInfoProvider, CustomerInfoProvider>();
+builder.Services.AddScoped<IResidenceProvider, ResidenceProvider>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()

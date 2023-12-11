@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartEnergyHub.API.Filters;
 using SmartEnergyHub.BLL.Customer.Abstract;
 using SmartEnergyHub.BLL.Customer.Models;
 using SmartEnergyHub.BLL.Models;
@@ -23,7 +24,7 @@ namespace SmartEnergyHub.API.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                return ExceptionFilter.ErrorResult(nameof(id));
             }
 
             CustomerResponseModel model = await this._customerInfoProvider.GetCustomerAsync(id);
@@ -42,7 +43,7 @@ namespace SmartEnergyHub.API.Controllers
         {
             if (model == null)
             {
-                throw new ArgumentNullException(nameof(model));
+                return ExceptionFilter.ErrorResult(nameof(model));
             }
 
             string customerId = await this._customerInfoProvider.UpdateCustomerAsync(model);
@@ -61,7 +62,7 @@ namespace SmartEnergyHub.API.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                return ExceptionFilter.ErrorResult(nameof(id));
             }
 
             try
@@ -82,7 +83,7 @@ namespace SmartEnergyHub.API.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                return ExceptionFilter.ErrorResult(nameof(id));
             }
 
             int result = await this._customerInfoProvider.CreateDefaultResidenceAsync(id);
