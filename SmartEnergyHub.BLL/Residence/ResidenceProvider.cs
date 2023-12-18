@@ -22,9 +22,11 @@ namespace SmartEnergyHub.BLL.Residence_
             }
 
             ResidenceResponseModel result = await this._context.Residences
+                .Include(x=>x.Devices)
                 .Where(residence => residence.CustomerId == id)
                 .Select(residence => new ResidenceResponseModel
                 {
+                    Id = residence.Id,
                     DeviceCount = residence.DeviceCount,
                     RoomCount = residence.RoomCount,
                     Area = residence.Area,

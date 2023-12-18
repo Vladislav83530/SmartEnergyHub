@@ -5,10 +5,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using SmartEnergyHub.API.Filters;
+using SmartEnergyHub.API.Settings;
 using SmartEnergyHub.BLL.Auth;
 using SmartEnergyHub.BLL.Auth.Interfaces;
 using SmartEnergyHub.BLL.Customer;
 using SmartEnergyHub.BLL.Customer.Abstract;
+using SmartEnergyHub.BLL.Device_;
+using SmartEnergyHub.BLL.Device_.Abstract;
+using SmartEnergyHub.BLL.DeviceGenerator;
+using SmartEnergyHub.BLL.DeviceGenerator.Abstract;
 using SmartEnergyHub.BLL.Residence_;
 using SmartEnergyHub.BLL.Residence_.Abstract;
 using SmartEnergyHub.DAL.EF;
@@ -20,6 +25,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.Configure<DeviceGeneratorSettings>
+        (builder.Configuration.GetSection("DeviceGeneratorSettings"));
 
 builder.Services.AddControllers();
 
@@ -58,6 +66,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<ICustomerInfoProvider, CustomerInfoProvider>();
 builder.Services.AddScoped<IResidenceProvider, ResidenceProvider>();
+builder.Services.AddScoped<IDeviceGenerator, DeviceGenerator>();
+builder.Services.AddScoped<IDeviceService, DeviceService>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
