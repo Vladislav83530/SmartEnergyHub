@@ -2,6 +2,7 @@
 using SmartEnergyHub.BLL.Device_.Abstract;
 using SmartEnergyHub.BLL.Device_.Models;
 using SmartEnergyHub.DAL.EF;
+using SmartEnergyHub.DAL.Entities.Enums;
 
 namespace SmartEnergyHub.BLL.Device_
 {
@@ -26,14 +27,37 @@ namespace SmartEnergyHub.BLL.Device_
                 query = query.Where(d => d.Name.Contains(filter.Name));
             }
 
-            if (!string.IsNullOrEmpty(filter.SerialNumber))
+            var parsedTypes = new List<DeviceType>();
+            var parsedRoomTypes = new List<RoomType>();
+
+            if (!string.IsNullOrEmpty(filter.DeviceType))
             {
-                query = query.Where(d => d.SerialNumber.Contains(filter.SerialNumber));
+                string[] types = filter.DeviceType.Split('-', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string type in types)
+                {
+                    if (Enum.TryParse(type, out DeviceType parsedType))
+                    {
+                        parsedTypes.Add(parsedType);
+                    }
+                }
+
+                query = query.Where(d => parsedTypes.Contains(d.DeviceType));
             }
 
-            if (filter.DeviceType.HasValue)
+            if (!string.IsNullOrEmpty(filter.RoomType))
             {
-                query = query.Where(d => d.DeviceType == filter.DeviceType);
+                string[] types = filter.RoomType.Split('-', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string type in types)
+                {
+                    if (Enum.TryParse(type, out RoomType parsedRoomType))
+                    {
+                        parsedRoomTypes.Add(parsedRoomType);
+                    }
+                }
+
+                query = query.Where(d => parsedRoomTypes.Contains(d.DeviceInfo.RoomType));
             }
 
             if (filter.IsActive.HasValue)
@@ -41,19 +65,9 @@ namespace SmartEnergyHub.BLL.Device_
                 query = query.Where(d => d.DeviceInfo.IsActive == filter.IsActive);
             }
 
-            if (filter.IsConnected.HasValue)
+            if (filter.IsAutonomous.HasValue)
             {
-                query = query.Where(d => d.DeviceInfo.IsConnected == filter.IsConnected);
-            }
-
-            if (filter.LastAccessTime.HasValue)
-            {
-                query = query.Where(d => d.DeviceInfo.LastAccessTime >= filter.LastAccessTime);
-            }
-
-            if (filter.RoomType.HasValue)
-            {
-                query = query.Where(d => d.DeviceInfo.RoomType == filter.RoomType);
+                query = query.Where(d => d.DeviceInfo.IsAutonomous == filter.IsAutonomous);
             }
 
             var result = await query
@@ -71,7 +85,7 @@ namespace SmartEnergyHub.BLL.Device_
                     IsConnected = device.DeviceInfo.IsConnected,
                     IsAutonomous = device.DeviceInfo.IsAutonomous,
                     LastAccessTime = device.DeviceInfo.LastAccessTime,
-                    RoomType = device.DeviceInfo.RoomType
+                    RoomType = device.DeviceInfo.RoomType,
                 })
                 .ToListAsync();
 

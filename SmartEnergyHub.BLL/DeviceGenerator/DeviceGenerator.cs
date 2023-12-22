@@ -24,7 +24,7 @@ namespace SmartEnergyHub.BLL.DeviceGenerator
         {
             List<Device> devices = new List<Device>();
 
-            for (var i = 0; i < new Random().Next(5, 25); i++)
+            for (var i = 0; i < new Random().Next(15, 35); i++)
             {
                 devices.Add(GenerateDevice(residenceId, deviceNameData, serialNumbers, accessTokens, macAddresses, rooms));
             }
