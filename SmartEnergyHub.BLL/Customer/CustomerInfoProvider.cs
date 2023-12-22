@@ -121,7 +121,8 @@ namespace SmartEnergyHub.BLL.Customer
             Residence residence = new Residence
             {
                 CustomerId = customerId,
-                ResidenceLocation = residenceLocation
+                ResidenceLocation = residenceLocation,
+                ConnectionStatus = DAL.Entities.Enums.ConnectionStatus.Disconnected
             };
 
             _context.Residences.Add(residence);
