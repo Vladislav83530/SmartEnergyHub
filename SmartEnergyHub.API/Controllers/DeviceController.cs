@@ -5,6 +5,7 @@ using SmartEnergyHub.API.Settings;
 using SmartEnergyHub.BLL.Device_.Models;
 using SmartEnergyHub.BLL.Device_.Abstract;
 using SmartEnergyHub.BLL.DeviceGenerator.Abstract;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartEnergyHub.API.Controllers
 {
@@ -27,6 +28,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpPost, Route("create-devices/{residenceId}")]
+        [Authorize]
         public async Task<IActionResult> CreateDevices(int residenceId)
         {
             if (residenceId <= 0)
@@ -41,6 +43,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpPost, Route("get-devices/{residenceId}")]
+        [Authorize]
         public async Task<IActionResult> GetDevices(int residenceId, [FromBody] FilterRequestModel request)
         {
             if (residenceId <= 0)
@@ -61,6 +64,20 @@ namespace SmartEnergyHub.API.Controllers
             }
 
             return Ok(devices);
+        }
+
+        [HttpPut, Route("update-active-status/{deviceId}/{isActive}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateDeviceActiveStatus(int deviceId, bool isActive)
+        {
+            if (deviceId <= 0)
+            {
+                return ExceptionFilter.ErrorResult(nameof(deviceId));
+            }
+
+            await this._deviceService.UpdateDeviceStatus(deviceId, isActive);
+
+            return Ok();
         }
     } 
 }

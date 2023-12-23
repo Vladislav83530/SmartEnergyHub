@@ -2,6 +2,7 @@
 using SmartEnergyHub.BLL.Device_.Abstract;
 using SmartEnergyHub.BLL.Device_.Models;
 using SmartEnergyHub.DAL.EF;
+using SmartEnergyHub.DAL.Entities;
 using SmartEnergyHub.DAL.Entities.Enums;
 
 namespace SmartEnergyHub.BLL.Device_
@@ -90,6 +91,25 @@ namespace SmartEnergyHub.BLL.Device_
                 .ToListAsync();
 
             return result;
+        }
+
+        public async Task UpdateDeviceStatus(int deviceId, bool isActive)
+        {
+            if (deviceId <= 0)
+            {
+                throw new ArgumentNullException(nameof(deviceId));
+            }
+
+            Device device = await this._context.Devices
+                .Include(x=>x.DeviceInfo)
+                .FirstOrDefaultAsync(x=>x.Id == deviceId);
+
+            if (device != null)
+            {
+                device.DeviceInfo.IsActive = isActive;
+
+                await this._context.SaveChangesAsync();
+            }
         }
     }
 }
