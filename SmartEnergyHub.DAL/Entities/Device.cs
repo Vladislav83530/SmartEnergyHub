@@ -17,7 +17,6 @@ namespace SmartEnergyHub.DAL.Entities
         public Residence Residence { get; set; }
         public int DeviceInfoId { get; set; }
         public DeviceInfo DeviceInfo { get; set; } = new DeviceInfo();
-        public AutonomousDevice? AutonomousDevice { get; set; } = new AutonomousDevice();
-        public IEnumerable<ActivitySession>? ActivitySessions { get; set; }  = new List<ActivitySession>();
+        public IList<ActivitySession>? ActivitySessions { get; set; }  = new List<ActivitySession>();
     }
 }

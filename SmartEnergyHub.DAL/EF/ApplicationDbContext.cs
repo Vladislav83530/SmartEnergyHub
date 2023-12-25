@@ -14,7 +14,6 @@ namespace SmartEnergyHub.DAL.EF
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceInfo> DeviceInfo { get; set; }
         public DbSet<ActivitySession> ActivitySessions { get; set; }
-        public DbSet<AutonomousDevice> AutonomousDevices { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -55,11 +54,6 @@ namespace SmartEnergyHub.DAL.EF
                 .HasMany<ActivitySession>(u => u.ActivitySessions)
                 .WithOne(c => c.Device)
                 .HasForeignKey(c => c.DeviceId);
-
-            modelBuilder.Entity<AutonomousDevice>()
-                .HasOne<Device>(u => u.Device)
-                .WithOne(c => c.AutonomousDevice)
-                .HasForeignKey<AutonomousDevice>(c => c.DeviceId);
         }
     }
 }

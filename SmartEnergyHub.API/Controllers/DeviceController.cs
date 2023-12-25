@@ -6,6 +6,7 @@ using SmartEnergyHub.BLL.Device_.Models;
 using SmartEnergyHub.BLL.Device_.Abstract;
 using SmartEnergyHub.BLL.DeviceGenerator.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using SmartEnergyHub.DAL.Entities;
 
 namespace SmartEnergyHub.API.Controllers
 {
@@ -78,6 +79,44 @@ namespace SmartEnergyHub.API.Controllers
             await this._deviceService.UpdateDeviceStatus(deviceId, isActive);
 
             return Ok();
+        }
+
+        [HttpGet, Route("{deviceId}")]
+        [Authorize]
+        public async Task<IActionResult> GetDevice(int deviceId)
+        {
+            if (deviceId <= 0)
+            {
+                return ExceptionFilter.ErrorResult(nameof(deviceId));
+            }
+
+            DeviceResponseModel response = await this._deviceService.GetDevice(deviceId);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet, Route("get-sessions/{deviceId}/{period}")]
+        [Authorize]
+        public async Task<IActionResult> GetActivitySessions(int deviceId, Period period)
+        {
+            if (deviceId <= 0)
+            {
+                return ExceptionFilter.ErrorResult(nameof(deviceId));
+            }
+
+            List<ActivitySession> sessions = await this._deviceService.GetActivitySessions(deviceId, period);
+
+            if (!sessions.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(sessions);
         }
     } 
 }

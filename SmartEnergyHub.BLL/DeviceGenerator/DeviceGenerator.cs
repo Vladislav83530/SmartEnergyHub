@@ -76,6 +76,6 @@ namespace SmartEnergyHub.BLL.DeviceGenerator
         private bool GetRandomBoolean()
         {
             return new Random().Next(2) == 0;
-        }
+        }        
     }
 }

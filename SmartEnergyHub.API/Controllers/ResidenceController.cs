@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartEnergyHub.API.Filters;
 using SmartEnergyHub.BLL.Residence_.Abstract;
@@ -18,6 +19,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpGet, Route("{customerId}")]
+        [Authorize]
         public async Task<IActionResult> Get(string customerId)
         {
             if (string.IsNullOrEmpty(customerId))
@@ -36,6 +38,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpPut, Route("set-connected-status/{id}")]
+        [Authorize]
         public async Task<IActionResult> SetConnectedStatus(int id)
         {
             if (id <= 0)
@@ -49,6 +52,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpPut, Route("update-residence")]
+        [Authorize]
         public async Task<IActionResult> UpdateResidence(UpdateResidenceRequestModel request)
         {
             if (request == null)
@@ -62,6 +66,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpGet, Route("residence-by-id/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetResidenceById(int id)
         {
             if (id <= 0)
@@ -80,6 +85,7 @@ namespace SmartEnergyHub.API.Controllers
         }
 
         [HttpDelete, Route("{residenceId}/{customerId}")]
+        [Authorize]
         public async Task<IActionResult> ClearResidenceInfo(int residenceId, string customerId)
         {
             if (residenceId <= 0)
